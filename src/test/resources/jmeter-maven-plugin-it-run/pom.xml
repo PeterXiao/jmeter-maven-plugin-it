@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>jmeter-maven-plugin-it-run</artifactId>
+  <groupId>com.lazerycode.jmeter</groupId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <description>
+    Executes JMeter a test.
+
+    Invoke with "mvn install -Dexecute"
+  </description>
+
+  <properties>
+    <webapp.protocol>http</webapp.protocol>
+    <webapp.host>localhost</webapp.host>
+    <webapp.port>8080</webapp.port>
+    <webapp.context></webapp.context>
+    <webapp.baseuri>${webapp.protocol}://${webapp.host}:${webapp.port}${webapp.context}</webapp.baseuri>
+    <webapp.uris>${project.basedir}/src/test/jmeter/uris.txt</webapp.uris>
+    <jmeter.maven.plugin.version>1.4.2-SNAPSHOT</jmeter.maven.plugin.version>
+    <jetty.plugin.version>8.1.2.v20120308</jetty.plugin.version>
+  </properties>
+
+
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty.plugin.version}</version>
+        <configuration>
+          <scanIntervalSeconds>10</scanIntervalSeconds>
+          <stopPort>8005</stopPort>
+          <stopKey>STOP</stopKey>
+
+        </configuration>
+        <executions>
+          <execution>
+            <id>start-jetty</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <scanIntervalSeconds>0</scanIntervalSeconds>
+              <daemon>true</daemon>
+            </configuration>
+          </execution>
+          <execution>
+            <id>stop-jetty</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>jmeter-maven-plugin</artifactId>
+        <version>${jmeter.maven.plugin.version}</version>
+        <executions>
+          <execution>
+            <!--
+
+            -->
+            <id>warmup</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>jmeter</goal>
+            </goals>
+            <configuration>
+              <propertiesUser>
+                <!--Accesses urls for warmup (compiles JSPs, fills caches, ...)-->
+                <threadgroup00.name>warmup</threadgroup00.name>
+                <!--number of threads to use-->
+                <threadgroup00.numberOfThreads>1</threadgroup00.numberOfThreads>
+                <!--delay of the test in seconds-->
+                <threadgroup00.scheduledDelay>0</threadgroup00.scheduledDelay>
+                <!--duration of the test in seconds-->
+                <threadgroup00.numberOfLoops>10</threadgroup00.numberOfLoops>
+                <!--duration of the test in seconds-->
+                <threadgroup00.scheduledDuration>100000000</threadgroup00.scheduledDuration>
+                <!--how long till all threads are up and running in seconds-->
+                <threadgroup00.rampUp>1</threadgroup00.rampUp>
+                <!--target throughput of all threads of the group per minute-->
+                <threadgroup00.throughput>100000000</threadgroup00.throughput>
+                <!-- use uris from given file -->
+                <threadgroup00.dataFile>${webapp.uris}</threadgroup00.dataFile>
+              </propertiesUser>
+            </configuration>
+          </execution>
+        </executions>
+        <!-- general configuration for all executions -->
+
+        <configuration>
+          <!-- enable built-in reports -->
+          <reportConfig>
+            <enable>false</enable>
+          </reportConfig>
+
+          <ignoreResultFailures>true</ignoreResultFailures>
+          <ignoreResultErrors>true</ignoreResultErrors>
+
+          <!-- configure which testplans to use -->
+          <testFilesIncluded>
+            <testFilesIncluded>test.jmx</testFilesIncluded>
+          </testFilesIncluded>
+
+          <!-- protocol, server and port of tested webapp -->
+          <propertiesUser>
+            <protocol>${webapp.protocol}</protocol>
+            <server>${webapp.host}</server>
+            <port>${webapp.port}</port>
+          </propertiesUser>
+
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>jmeter-maven-plugin</artifactId>
+      <version>${jmeter.maven.plugin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-maven-plugin</artifactId>
+      <version>${jetty.plugin.version}</version>
+    </dependency>
+  </dependencies>
+
+</project>
