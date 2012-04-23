@@ -11,9 +11,11 @@
   <packaging>pom</packaging>
 
   <description>
+    Starts up a Jetty
     Executes JMeter a test.
+    Shuts down the Jetty
 
-    Invoke with "mvn install -Dexecute"
+    Invoke with "mvn verify"
   </description>
 
   <properties>
@@ -40,7 +42,6 @@
           <scanIntervalSeconds>10</scanIntervalSeconds>
           <stopPort>8005</stopPort>
           <stopKey>STOP</stopKey>
-
         </configuration>
         <executions>
           <execution>
@@ -70,28 +71,19 @@
         <version>${jmeter.maven.plugin.version}</version>
         <executions>
           <execution>
-            <!--
-
-            -->
-            <id>warmup</id>
+            <id>integration-test</id>
             <phase>integration-test</phase>
             <goals>
               <goal>jmeter</goal>
             </goals>
             <configuration>
               <propertiesUser>
-                <!--Accesses urls for warmup (compiles JSPs, fills caches, ...)-->
-                <threadgroup00.name>warmup</threadgroup00.name>
-                <!--number of threads to use-->
-                <threadgroup00.numberOfThreads>1</threadgroup00.numberOfThreads>
-                <!--delay of the test in seconds-->
-                <threadgroup00.scheduledDelay>0</threadgroup00.scheduledDelay>
-                <!--duration of the test in seconds-->
+                <!--request URI in uri.txt-->
+                <threadgroup00.name>integration-test</threadgroup00.name>
+                <!--run 10 requests-->
                 <threadgroup00.numberOfLoops>10</threadgroup00.numberOfLoops>
                 <!--duration of the test in seconds-->
                 <threadgroup00.scheduledDuration>100000000</threadgroup00.scheduledDuration>
-                <!--how long till all threads are up and running in seconds-->
-                <threadgroup00.rampUp>1</threadgroup00.rampUp>
                 <!--target throughput of all threads of the group per minute-->
                 <threadgroup00.throughput>100000000</threadgroup00.throughput>
                 <!-- use uris from given file -->
@@ -101,16 +93,7 @@
           </execution>
         </executions>
         <!-- general configuration for all executions -->
-
         <configuration>
-          <!-- enable built-in reports -->
-          <reportConfig>
-            <enable>false</enable>
-          </reportConfig>
-
-          <ignoreResultFailures>true</ignoreResultFailures>
-          <ignoreResultErrors>true</ignoreResultErrors>
-
           <!-- configure which testplans to use -->
           <testFilesIncluded>
             <testFilesIncluded>test.jmx</testFilesIncluded>
@@ -122,7 +105,6 @@
             <server>${webapp.host}</server>
             <port>${webapp.port}</port>
           </propertiesUser>
-
         </configuration>
       </plugin>
     </plugins>
