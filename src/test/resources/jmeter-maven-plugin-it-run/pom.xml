@@ -7,7 +7,7 @@
 
   <artifactId>jmeter-maven-plugin-it-run</artifactId>
   <groupId>com.lazerycode.jmeter</groupId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.4.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <description>
@@ -68,7 +68,7 @@
       <plugin>
         <groupId>${project.groupId}</groupId>
         <artifactId>jmeter-maven-plugin</artifactId>
-        <version>${jmeter.maven.plugin.version}</version>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <id>integration-test</id>
@@ -116,7 +116,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>jmeter-maven-plugin</artifactId>
-      <version>${jmeter.maven.plugin.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
