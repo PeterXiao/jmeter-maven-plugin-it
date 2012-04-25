@@ -80,6 +80,8 @@
               <propertiesUser>
                 <!--request URI in uri.txt-->
                 <threadgroup00.name>integration-test</threadgroup00.name>
+                <!--number of threads to use-->
+                <threadgroup00.numberOfThreads>1</threadgroup00.numberOfThreads>
                 <!--run 10 requests-->
                 <threadgroup00.numberOfLoops>10</threadgroup00.numberOfLoops>
                 <!--duration of the test in seconds-->

@@ -1,11 +1,11 @@
-jmeter-maven-plugin-it
-======================
+# jmeter-maven-plugin-it
 
 Integration test for the jmeter-maven-plugin.
 
 The [Maven Verifier][1] is used to run the test.
 It contains a `pom.xml` with a full configuration for the [JMeter Maven Plugin][2].
-During the test, a [Jetty HTTP Server][3] is started, and a dummy webapp with an `index.html` is deployed.
+
+At the beginning the test, a [Jetty HTTP Server][3] is started, and a dummy webapp with an `index.html` is deployed.
 After that, the JMeter testplan `test.jmx` requests the `index.html` 10 times.
 After the JMeter test ends, the Jetty server is shut down again.
 
