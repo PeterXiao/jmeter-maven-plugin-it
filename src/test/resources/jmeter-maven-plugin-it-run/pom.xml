@@ -25,7 +25,6 @@
     <webapp.context></webapp.context>
     <webapp.baseuri>${webapp.protocol}://${webapp.host}:${webapp.port}${webapp.context}</webapp.baseuri>
     <webapp.uris>${project.basedir}/src/test/jmeter/uris.txt</webapp.uris>
-    <jmeter.maven.plugin.version>1.4.2-SNAPSHOT</jmeter.maven.plugin.version>
     <jetty.plugin.version>8.1.2.v20120308</jetty.plugin.version>
   </properties>
 
@@ -112,17 +111,13 @@
     </plugins>
   </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>jmeter-maven-plugin</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>jetty-maven-plugin</artifactId>
-      <version>${jetty.plugin.version}</version>
-    </dependency>
-  </dependencies>
+
+  <!-- in case we want to use a SNAPSHOT version of the jmeter-maven-plugin -->
+    <pluginRepositories>
+      <pluginRepository>
+        <id>sonatype-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      </pluginRepository>
+    </pluginRepositories>
 
 </project>
