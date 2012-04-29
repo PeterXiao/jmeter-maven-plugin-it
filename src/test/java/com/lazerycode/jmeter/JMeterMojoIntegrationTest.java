@@ -15,7 +15,7 @@ import org.junit.Test;
 public class JMeterMojoIntegrationTest extends TestCase {
 
   private static final String GROUP_ID = "com.lazerycode.jmeter";
-  private static final String VERSION = "1.5.0";
+  private static final String VERSION = "1.5.1-SNAPSHOT";
   private static final String ARTIFACT_ID_IT = "jmeter-maven-plugin-it";
   private static final String ARTIFACT_ID_IT_RUN = "jmeter-maven-plugin-it-run";
   private static final String PACKAGING = "pom";
