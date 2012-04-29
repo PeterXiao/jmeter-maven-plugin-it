@@ -7,7 +7,7 @@
 
   <artifactId>jmeter-maven-plugin-it</artifactId>
   <groupId>com.lazerycode.jmeter</groupId>
-  <version>1.4.2-SNAPSHOT</version>
+  <version>1.5.0</version>
 
   <description>
     Executes integration tests for the jmeter-maven-plugin.
