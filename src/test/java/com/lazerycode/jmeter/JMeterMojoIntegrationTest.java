@@ -15,10 +15,6 @@ import org.junit.Test;
 public class JMeterMojoIntegrationTest extends TestCase {
 
   private static final String GROUP_ID = "com.lazerycode.jmeter";
-  private static final String VERSION = "1.5.1-SNAPSHOT";
-  private static final String ARTIFACT_ID_IT = "jmeter-maven-plugin-it";
-  private static final String ARTIFACT_ID_IT_RUN = "jmeter-maven-plugin-it-run";
-  private static final String PACKAGING = "pom";
 
   public void testJMeterMojo() throws Exception {
 
@@ -35,8 +31,7 @@ public class JMeterMojoIntegrationTest extends TestCase {
        * makes it easy to do this.
        */
       verifier = new Verifier( testDir.getAbsolutePath() );
-      verifier.deleteArtifact( GROUP_ID, ARTIFACT_ID_IT, VERSION, PACKAGING );
-      verifier.deleteArtifact( GROUP_ID, ARTIFACT_ID_IT_RUN, VERSION, PACKAGING );
+      verifier.deleteArtifacts(GROUP_ID);
 
       /**
        * The Command Line Options (CLI) are passed to the
@@ -53,23 +48,10 @@ public class JMeterMojoIntegrationTest extends TestCase {
       verifier.executeGoal( "clean" );
       verifier.executeGoal( "verify" );
 
-      /**
-       * This is the simplest way to check a build
-       * succeeded. It is also the simplest way to create
-       * an IT test: make the build pass when the test
-       * should pass, and make the build fail when the
-       * test should fail. There are other methods
-       * supported by the verifier. They can be seen here:
-       * http://maven.apache.org/shared/maven-verifier/apidocs/index.html
-       */
-      verifier.verifyErrorFreeLog();
+      //make sure that all expected files are created, see expected-results.txt
+      verifier.verify(true);
 
-      //TODO: test that all necessary files are created etc.
-
-      /**
-       * Reset the streams before executing the verifier
-       * again.
-       */
-      //verifier.resetStreams();
+      //log should state that test was completed
+      verifier.verifyTextInLog("Completed Test: test.jmx");
     }
 }

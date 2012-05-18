@@ -10,6 +10,9 @@
   <version>1.5.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <url>http://jmeter.lazerycode.com</url>
+
+
   <description>
     Starts up a Jetty
     Executes JMeter a test.
@@ -21,7 +24,8 @@
   <properties>
     <webapp.protocol>http</webapp.protocol>
     <webapp.host>localhost</webapp.host>
-    <webapp.port>8080</webapp.port>
+    <!-- use non-standard port to make sure it's never used when executing this test -->
+    <webapp.port>8989</webapp.port>
     <webapp.context></webapp.context>
     <webapp.baseuri>${webapp.protocol}://${webapp.host}:${webapp.port}${webapp.context}</webapp.baseuri>
     <webapp.uris>${project.basedir}/src/test/jmeter/uris.txt</webapp.uris>
@@ -41,6 +45,12 @@
           <scanIntervalSeconds>10</scanIntervalSeconds>
           <stopPort>8005</stopPort>
           <stopKey>STOP</stopKey>
+          <systemProperties>
+            <systemProperty>
+              <name>jetty.port</name>
+              <value>${webapp.port}</value>
+            </systemProperty>
+          </systemProperties>
         </configuration>
         <executions>
           <execution>
@@ -99,6 +109,14 @@
           <testFilesIncluded>
             <testFilesIncluded>test.jmx</testFilesIncluded>
           </testFilesIncluded>
+
+          <!-- do not use interal reporting -->
+          <reportConfig>
+            <enable>false</enable>
+          </reportConfig>
+
+          <!-- do not timestamp results so that results file will be <target>/jmeter/report/test.jtl -->
+          <testResultsTimestamp>false</testResultsTimestamp>
 
           <!-- protocol, server and port of tested webapp -->
           <propertiesUser>
