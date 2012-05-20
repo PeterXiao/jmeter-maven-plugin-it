@@ -13,8 +13,6 @@ import org.apache.maven.it.util.ResourceExtractor;
  */
 public class JMeterMojoIntegrationTest extends TestCase {
 
-  private static final String GROUP_ID = "com.lazerycode.jmeter";
-
   public void testJMeterMojo() throws Exception {
 
       Verifier verifier;
@@ -23,13 +21,9 @@ public class JMeterMojoIntegrationTest extends TestCase {
       File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/jmeter-maven-plugin-it-run");
 
       /**
-       * We must first make sure that any artifact created
-       * by this test has been removed from the local
-       * repository. Failing to do this could cause
-       * unstable test results.
+       * Create Verifier with *-run dir as baseDir
        */
       verifier = new Verifier( testDir.getAbsolutePath() );
-      verifier.deleteArtifacts(GROUP_ID);
 
       /**
        * The Command Line Options (CLI) are passed to the
