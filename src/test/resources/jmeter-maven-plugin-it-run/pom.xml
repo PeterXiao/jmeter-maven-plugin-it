@@ -18,7 +18,7 @@
     Executes JMeter a test.
     Shuts down the Jetty
 
-    Invoke with "mvn verify"
+    Invoke with "mvn clean verify"
   </description>
 
   <properties>
@@ -37,6 +37,7 @@
   <build>
     <plugins>
 
+      <!-- configure Jetty to start before JMeter and stop after -->
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
@@ -74,6 +75,7 @@
         </executions>
       </plugin>
 
+      <!-- configure jmeter-maven-plugin -->
       <plugin>
         <groupId>${project.groupId}</groupId>
         <artifactId>jmeter-maven-plugin</artifactId>
