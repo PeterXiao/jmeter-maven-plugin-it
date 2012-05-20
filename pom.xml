@@ -12,6 +12,8 @@
 
   <description>
     Parent of jmeter-maven-plugin integration tests.
+
+    Invoke with "mvn clean install".
   </description>
 
   <properties>
