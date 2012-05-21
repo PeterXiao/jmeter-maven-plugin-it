@@ -9,8 +9,13 @@ At the beginning the test, a [Jetty HTTP Server][3] is started, and a dummy weba
 After that, the JMeter testplan `test.jmx` requests the `index.html` 10 times.
 After the JMeter test ends, the Jetty server is shut down again.
 
-[Maven Verifier][1] then checks whether the plugin was executed without problems.
+[Maven Verifier][1] then checks whether
+ * the plugin was executed successfully
+ * the maven log shows any ERRORS
+ * the maven log contains text that indicates that the jmeter-maven-plugin finished correctly
+ * that all files listed in `expected-results.txt` are present afterwards
 
+if any of the above is negative, the test fails.
 
 Run the test in module `jmeter-maven-plugin-it` with `mvn clean verify`.
 The Parent POM must be installed into local Maven repository in order for the test to work.
