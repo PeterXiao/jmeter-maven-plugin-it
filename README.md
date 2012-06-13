@@ -17,9 +17,8 @@ After the JMeter test ends, the Jetty server is shut down again.
 
 if any of the above is negative, the test fails.
 
-Run the test in module `jmeter-maven-plugin-it` with `mvn clean verify`.
-The Parent POM must be installed into local Maven repository in order for the test to work.
-Running `mvn clean install` in the workspace root will first install the parent and then invoke the test.
+In order to make version, dependency and plugin management as easy as possible, both the `jmeter-maven-plugin-it` module and the enclosed `jmeter-maven-plugin-it-run` module (the module that runs the actual test) inherit from `jmeter-maven-plugin-it-parent`.
+
 
 [1]:    http://maven.apache.org/shared/maven-verifier/        "Maven Verifier Component"
 [2]:    http://jmeter.lazerycode.com                          "JMeter Maven Plugin"

@@ -9,6 +9,7 @@
     <groupId>com.lazerycode.jmeter</groupId>
     <artifactId>jmeter-maven-plugin-it-parent</artifactId>
     <version>1.6.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>jmeter-maven-plugin-it</artifactId>
