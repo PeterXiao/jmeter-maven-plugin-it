@@ -19,7 +19,13 @@ if any of the above is negative, the test fails.
 
 In order to make version, dependency and plugin management as easy as possible, both the `jmeter-maven-plugin-it` module and the enclosed `jmeter-maven-plugin-it-run` module (the module that runs the actual test) inherit from `jmeter-maven-plugin-it-parent`.
 
+Credits
+--------------
+
+Part of the development of this workspace is sponsored by [CoreMedia][4]
+
 
 [1]:    http://maven.apache.org/shared/maven-verifier/        "Maven Verifier Component"
 [2]:    http://jmeter.lazerycode.com                          "JMeter Maven Plugin"
 [3]:    http://jetty.codehaus.org/jetty/                      "Jetty HTTP Server"
+[4]:    http://www.coremedia.com                                    "CoreMedia AG"
