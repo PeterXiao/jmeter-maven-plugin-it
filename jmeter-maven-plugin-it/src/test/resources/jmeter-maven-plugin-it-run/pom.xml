@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.lazerycode.jmeter</groupId>
     <artifactId>jmeter-maven-plugin-it-parent</artifactId>
-    <version>1.8.1-SNAPSHOT</version>
+    <version>1.8.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>jmeter-maven-plugin-it-run</artifactId>
@@ -110,11 +110,6 @@
           <testFilesIncluded>
             <testFilesIncluded>test.jmx</testFilesIncluded>
           </testFilesIncluded>
-
-          <!-- do not use interal reporting -->
-          <reportConfig>
-            <enable>false</enable>
-          </reportConfig>
 
           <!-- do not timestamp results so that results file will be <target>/jmeter/report/test.jtl -->
           <testResultsTimestamp>false</testResultsTimestamp>
