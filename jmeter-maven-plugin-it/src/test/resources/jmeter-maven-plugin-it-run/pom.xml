@@ -114,6 +114,9 @@
           <!-- do not timestamp results so that results file will be <target>/jmeter/report/test.jtl -->
           <testResultsTimestamp>false</testResultsTimestamp>
 
+          <!-- log output of JMeter process -->
+          <suppressJMeterOutput>false</suppressJMeterOutput>
+
           <!-- protocol, server and port of tested webapp -->
           <propertiesUser>
             <protocol>${webapp.protocol}</protocol>
