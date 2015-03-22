@@ -19,10 +19,12 @@ target/jmeter/lib/ext/ApacheJMeter_java-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_jdbc-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_jms-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_junit-2.13.jar
+target/jmeter/lib/ext/ApacheJMeter_junit-test-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_ldap-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_mail-2.13.jar
+target/jmeter/lib/ext/ApacheJMeter_mongodb-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_monitors-2.13.jar
-target/jmeter/lib/ext/ApacheJMeter_report-2.13.jar
+target/jmeter/lib/ext/ApacheJMeter_native-2.13.jar
 target/jmeter/lib/ext/ApacheJMeter_tcp-2.13.jar
 target/jmeter/logs/
 target/jmeter/logs/test.jmx.log
