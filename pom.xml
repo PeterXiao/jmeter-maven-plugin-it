@@ -3,86 +3,62 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>jmeter-maven-plugin-it-parent</artifactId>
-  <groupId>com.lazerycode.jmeter</groupId>
-  <version>1.10.2-SNAPSHOT</version>
-  <packaging>pom</packaging>
+    <artifactId>jmeter-maven-plugin-it-parent</artifactId>
+    <groupId>com.lazerycode.jmeter</groupId>
+    <version>DEV-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-  <description>
-    Parent of jmeter-maven-plugin integration tests.
+    <description>
+        Parent of jmeter-maven-plugin integration tests.
 
-    Invoke with "mvn clean install".
-  </description>
+        Invoke with "mvn clean install".
+    </description>
 
-  <properties>
-    <default.encoding>UTF-8</default.encoding>
-    <jmeter.maven.plugin.version>${project.version}</jmeter.maven.plugin.version>
-    <jetty.plugin.version>8.1.2.v20120308</jetty.plugin.version>
-  </properties>
+    <properties>
+        <default.encoding>UTF-8</default.encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-  <modules>
-    <module>jmeter-maven-plugin-it</module>
-  </modules>
+        <jetty-maven-plugin.version>9.3.0.v20150612</jetty-maven-plugin.version>
+        <jmeter-maven-plugin-version>1.10.2-SNAPSHOT</jmeter-maven-plugin-version>
+        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+        <maven-verifier.version>1.6</maven-verifier.version>
+        <port-allocator-maven-plugin>1.2</port-allocator-maven-plugin>
+    </properties>
 
-  <build>
-    <pluginManagement>
-      <plugins>
+    <modules>
+        <module>jmeter-maven-plugin-it</module>
+    </modules>
 
-        <!-- configure plugin versions -->
-        <plugin>
-          <groupId>org.mortbay.jetty</groupId>
-          <artifactId>jetty-maven-plugin</artifactId>
-          <version>${jetty.plugin.version}</version>
-        </plugin>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <encoding>${default.encoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <encoding>${default.encoding}</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
-        <plugin>
-          <groupId>${project.groupId}</groupId>
-          <artifactId>jmeter-maven-plugin</artifactId>
-          <version>${jmeter.maven.plugin.version}</version>
-        </plugin>
-
-        <!-- set default encoding for compilation -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
-          <configuration>
-            <encoding>${default.encoding}</encoding>
-          </configuration>
-        </plugin>
-
-        <!-- set default encoding for reading and writing files -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.6</version>
-          <configuration>
-            <encoding>${default.encoding}</encoding>
-          </configuration>
-        </plugin>
-
-      </plugins>
-    </pluginManagement>
-  </build>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.apache.maven.shared</groupId>
-        <artifactId>maven-verifier</artifactId>
-          <version>1.5</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <!-- in case we want to use a SNAPSHOT version of the jmeter-maven-plugin -->
-  <pluginRepositories>
-    <pluginRepository>
-      <id>sonatype-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </pluginRepository>
-  </pluginRepositories>
-
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

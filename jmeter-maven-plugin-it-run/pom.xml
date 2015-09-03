@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.lazerycode.jmeter</groupId>
+        <artifactId>jmeter-maven-plugin-it-parent</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jmeter-maven-plugin-it-run</artifactId>
+    <packaging>war</packaging>
+    <url>http://jmeter.lazerycode.com</url>
+
+
+    <description>
+        Starts up a Jetty
+        Executes JMeter a test.
+        Shuts down the Jetty
+
+        Invoke with "mvn clean verify"
+    </description>
+
+    <properties>
+        <webapp.protocol>http</webapp.protocol>
+        <webapp.host>localhost</webapp.host>
+        <webapp.uris>${project.basedir}/src/test/jmeter/uris.txt</webapp.uris>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>port-allocator-maven-plugin</artifactId>
+                <version>${port-allocator-maven-plugin}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>allocate-ports</goal>
+                        </goals>
+                        <configuration>
+                            <ports>
+                                <port>
+                                    <name>jetty.port</name>
+                                </port>
+                                <port>
+                                    <name>stop.jetty.port</name>
+                                </port>
+                            </ports>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty-maven-plugin.version}</version>
+                <configuration>
+                    <httpConnector>
+                        <port>${jetty.port}</port>
+                    </httpConnector>
+                    <stopKey>STOP</stopKey>
+                    <stopPort>${stop.jetty.port}</stopPort>
+                    <skip>${skipTests}</skip>
+                    <daemon>true</daemon>
+                    <war>${project.build.directory}/${project.artifactId}-${project.version}.war</war>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-jetty</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>deploy-war</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>${jmeter-maven-plugin-version}</version>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                        <configuration>
+                            <propertiesUser>
+                                <!--request URI in uri.txt-->
+                                <threadgroup00.name>integration-test</threadgroup00.name>
+                                <!--number of threads to use-->
+                                <threadgroup00.numberOfThreads>1</threadgroup00.numberOfThreads>
+                                <!--run 10 requests-->
+                                <threadgroup00.numberOfLoops>10</threadgroup00.numberOfLoops>
+                                <!--duration of the test in seconds-->
+                                <threadgroup00.scheduledDuration>100000000</threadgroup00.scheduledDuration>
+                                <!--target throughput of all threads of the group per minute-->
+                                <threadgroup00.throughput>100000000</threadgroup00.throughput>
+                                <!-- use uris from given file -->
+                                <threadgroup00.dataFile>${webapp.uris}</threadgroup00.dataFile>
+                            </propertiesUser>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <testFilesIncluded>
+                        <testFilesIncluded>test.jmx</testFilesIncluded>
+                    </testFilesIncluded>
+                    <testResultsTimestamp>false</testResultsTimestamp>
+                    <suppressJMeterOutput>false</suppressJMeterOutput>
+                    <propertiesUser>
+                        <protocol>${webapp.protocol}</protocol>
+                        <server>${webapp.host}</server>
+                        <port>${jetty.port}</port>
+                    </propertiesUser>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
