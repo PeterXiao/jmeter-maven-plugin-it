@@ -17,11 +17,9 @@
 
 
     <description>
-        Starts up a Jetty
-        Executes JMeter a test.
+        Starts up Jetty with a Hello world app
+        Executes a JMeter test.
         Shuts down the Jetty
-
-        Invoke with "mvn clean verify"
     </description>
 
     <properties>

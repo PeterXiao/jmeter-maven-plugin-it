@@ -13,11 +13,7 @@
     <modelVersion>4.0.0</modelVersion>
     <url>http://jmeter.lazerycode.com</url>
 
-    <description>
-        Executes integration tests for the jmeter-maven-plugin.
-
-        Invoke with "mvn clean verify"
-    </description>
+    <description>Executes integration tests for the jmeter-maven-plugin.</description>
 
     <dependencies>
         <dependency>
