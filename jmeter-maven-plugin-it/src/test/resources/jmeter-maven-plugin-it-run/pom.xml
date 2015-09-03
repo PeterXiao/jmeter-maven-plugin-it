@@ -28,12 +28,10 @@
     <webapp.protocol>http</webapp.protocol>
     <webapp.host>localhost</webapp.host>
     <!-- use non-standard port to make sure it's never used when executing this test -->
-    <webapp.port>8989</webapp.port>
+    <webapp.port>8789</webapp.port>
     <webapp.baseuri>${webapp.protocol}://${webapp.host}:${webapp.port}</webapp.baseuri>
     <webapp.uris>${project.basedir}/src/test/jmeter/uris.txt</webapp.uris>
   </properties>
-
-
 
   <build>
     <plugins>
